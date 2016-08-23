@@ -23,7 +23,7 @@ th {
 input:focus {
   background-color: lightgrey;
 }
-label {
+caption, label {
   font-size: 30px;
   color:white;
 }

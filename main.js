@@ -1,21 +1,10 @@
-
-let createTable = () => {
-  $("<tr id='day'></tr>").appendTo('#currentTable');
-  $("<tr id='txtinfo'></tr>").appendTo('#currentTable');
-  $("<tr id='imginfo'></tr>").appendTo('#currentTable');    
-};
-
-let clearTable = () => {
-  $('#currentTable').empty();
-};
-
 let clearInputs = () => {
   document.getElementById('city').value='';
   document.getElementById('state').value='';
   document.getElementById('zipcode').value='';
 };
 
-let weatherCall = (urls, zipOrCity) => {
+let weatherCall = (urls) => {
   $.ajax({
   url : urls,
   dataType : "json",
@@ -29,6 +18,7 @@ let weatherCall = (urls, zipOrCity) => {
 
 let createToday = () => {
   $("<tr id='days'></tr>").appendTo('#tableWeather');
+  $("<tr id='time'></tr>").appendTo('#tableWeather');
   $("<tr id='txtinfos'></tr>").appendTo('#tableWeather');
   $("<tr id='imginfos'></tr>").appendTo('#tableWeather');
   $("<tr id='img'></tr>").appendTo('#tableWeather'); 
@@ -39,13 +29,14 @@ let autoDesplay = url => {
   createToday();
   let info = url.current_observation
   $('<th>'+'Location: ' + info.observation_location.full+'</th>').appendTo('#days');
-  $('<th>'+  'Temperature: ' + info.temp_f +'</th>').appendTo('#txtinfos');
+  $('<th>'+ info.observation_time+'</th>' ).appendTo('#time')
+  $('<th>'+  'Temperature: ' + info.temp_f +' F </th>').appendTo('#txtinfos');
   $('<th>'+ 'Wind: ' + info.wind_string +'</th>').appendTo('#imginfos');
   $('<th><img src='+ info.icon_url +'></th>').appendTo('#img');
-  $('<th>'+ 'Weather: ' + info.icon +'</th>').appendTo('#imgdis');
-
+  $('<th>'+ 'Weather: ' + info.weather +'</th>').appendTo('#imgdis');
   backgroundPicker(info.icon)  
-}
+};
+
 let autoLocation = () => {
   urls = "http://api.wunderground.com/api/0c6827c56d281db1/conditions/q/autoip.json"
    $.ajax({
@@ -66,16 +57,18 @@ let startSearch = () => {
   let urls = '';
   let zipOrCity = false;
   if (!queryZip) {
-    urls = "http://api.wunderground.com/api/0c6827c56d281db1/forecast10day/q/" + queryState + "/" + queryCity + ".json"
+    urls = "http://api.wunderground.com/api/0c6827c56d281db1/forecast/geolookup/q/" + queryState + "/" + queryCity + ".json"
+    url = "http://api.wunderground.com/api/0c6827c56d281db1/conditions/q/" + queryState + "/" + queryCity + ".json"
     zipOrCity = true;
   } else {
-    urls = "http://api.wunderground.com/api/0c6827c56d281db1/forecast/geolookup/conditions/q/"+ queryZip + queryCity + '/' + queryState + ".json"
+    urls = "http://api.wunderground.com/api/0c6827c56d281db1/forecast/geolookup/q/"+ queryZip + ".json"
+    url = "http://api.wunderground.com/api/0c6827c56d281db1/conditions/q/" + queryState + "/" + queryCity + ".json"
   }
-  weatherCall(urls, zipOrCity);
+  weatherCall(urls);
+  queLocation(url);
 };
 
 let backgroundPicker = (backg) => {
-  console.log('input',backg)
   $('body').css('background-image', "url(img/"+backg+".jpeg)");
 };
 
@@ -84,17 +77,68 @@ let addToDom = result => {
   let forcastfortheday;
   let date;
   clearTable();
-  createTable();
-  let info = result.forecast.txt_forecast.forecastday
-  console.log(info.length)
-  for (let i = 0; i < 8; i+=2) {
-    date = info[i].title;
+  createTable(result);
+  let info = result.forecast.simpleforecast.forecastday
+  for (let i = 0; i < info.length; i++) {
+    date = info[i].date.weekday;
     today =  info[i].icon_url;
-    forcastfortheday = info[i].fcttext;
+    high = info[i].high.fahrenheit;
+    low = info[i].low.fahrenheit;
+    condition = info[i].conditions
     $('<th>'+ date +'</th>').appendTo('#day');
-    $('<th>'+ forcastfortheday +'</th>').appendTo('#txtinfo');
+    $('<th>'+ condition +'</th>').appendTo('#condit');
+    $('<th>'+ 'High: '+high + ' Low: '+low+'</th>').appendTo('#txtinfo');
     $('<th><img src='+ today +'></th>').appendTo('#imginfo');
   }
   backgroundPicker(info[0].icon)    
 };
 
+let createTable = (result) => {
+  city = result.location
+  $("<caption>Queried Location: "+city.city+" "+city.state+"</cation>").appendTo("#currentTable")
+  $("<tr id='day'></tr>").appendTo('#currentTable');
+  $("<tr id='condit'></tr>").appendTo('#currentTable');
+  $("<tr id='txtinfo'></tr>").appendTo('#currentTable');
+  $("<tr id='imginfo'></tr>").appendTo('#currentTable');    
+};
+
+let clearTable = () => {
+  $('#currentTable').empty();
+};
+
+let createQueried = () => {
+  $("<caption>Current Weather Queried Location</cation>").appendTo("#queriedTable");
+  $("<tr id='da'></tr>").appendTo('#queriedTable');
+  $("<tr id='tim'></tr>").appendTo('#queriedTable');
+  $("<tr id='txtin'></tr>").appendTo('#queriedTable');
+  $("<tr id='imgi'></tr>").appendTo('#queriedTable');
+  $("<tr id='im'></tr>").appendTo('#queriedTable'); 
+  $("<tr id='imgdi'></tr>").appendTo('#queriedTable'); 
+};
+
+let queTable = url => {
+  clearQue();
+  createQueried();
+  let info = url.current_observation
+  $('<th>'+'Location: ' + info.observation_location.full+'</th>').appendTo('#da');
+  $('<th>'+ info.observation_time+'</th>' ).appendTo('#tim')
+  $('<th>'+  'Temperature: ' + info.temp_f +' F </th>').appendTo('#txtin');
+  $('<th>'+ 'Wind: ' + info.wind_string +'</th>').appendTo('#imgi');
+  $('<th><img src='+ info.icon_url +'></th>').appendTo('#im');
+  $('<th>'+ 'Weather: ' + info.weather +'</th>').appendTo('#imgdi');
+  backgroundPicker(info.icon)  
+};
+
+let clearQue = () => {
+  $('#queriedTable').empty();
+}
+let queLocation = (url) => {
+  urls = url
+   $.ajax({
+    url : urls,
+    dataType : "json",
+    success : url => {
+      queTable(url);
+    }
+  });
+};

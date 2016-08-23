@@ -9,7 +9,7 @@
   <body id='pagebody' onload="autoLocation()">
     <form onsubmit="event.preventDefault(); startSearch()">
     <label>Inputs</label>
-    <table class='Enter'>
+    <table id='Enter'>
       <tr>
         <td>Enter a City</td>
         <td><input type='text' placeholder='enter a city' id='city' pattern="^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$"></td>
@@ -29,10 +29,10 @@
     </table>
     </form> 
     <br/>
-    <label>Current Weather At Your Location</label>
-    <table class='tableWeather' id='tableWeather'></table>
-    <br/>
-    <label>Queried Location</label>
-    <table class='currentTable' id='currentTable'></table> 
+    <table class='tableWeather' id='tableWeather'>
+      <caption>Current Weather At Your Location</cation>
+    </table>
+    <table class='queriedTable' id='queriedTable'></table>
+    <table class='currentTable' id='currentTable'></table>
   </body>
 </html>
