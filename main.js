@@ -1,3 +1,21 @@
+let createTable = () => {
+  $("<tr id='day'></tr>").appendTo('#currentTable');
+  $("<tr id='txtinfo'></tr>").appendTo('#currentTable');
+  $("<tr id='imginfo'></tr>").appendTo('#currentTable');    
+};
+
+
+
+let clearTable = () => {
+  $('#currentTable').empty();
+};
+
+let clearInputs = () => {
+  document.getElementById('city').value='';
+  document.getElementById('state').value='';
+  document.getElementById('zipcode').value='';
+};
+
 let weatherCall = (urls, zipOrCity) => {
     $.ajax({
     url : urls,
@@ -5,16 +23,15 @@ let weatherCall = (urls, zipOrCity) => {
     success : url => {
       console.log(url)
       addToDom(url);
+      clearInputs();
       }
     });
 };
+
 let autoLocation = () => {
   urls = "http://api.wunderground.com/api/0c6827c56d281db1/forecast10day/q/autoip.json"
   weatherCall(urls);
-}
-let clearTable = () => {
-  $('#currentTable').empty();
-}
+};
 
 let startSearch = () => {
   let selectVal = $( "#myselect" ).val();
@@ -49,8 +66,4 @@ let addToDom = result => {
     $('<th><img src='+ today +'></th>').appendTo('#imginfo');
   }    
 };
-let createTable = () => {
-  $("<tr id='day'></tr>").appendTo('#currentTable');
-  $("<tr id='txtinfo'></tr>").appendTo('#currentTable');
-  $("<tr id='imginfo'></tr>").appendTo('#currentTable');    
-}
+
