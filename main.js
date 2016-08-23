@@ -4,8 +4,6 @@ let createTable = () => {
   $("<tr id='imginfo'></tr>").appendTo('#currentTable');    
 };
 
-
-
 let clearTable = () => {
   $('#currentTable').empty();
 };
@@ -49,6 +47,11 @@ let startSearch = () => {
   weatherCall(urls, zipOrCity);
 };
 
+let backgroundPicker = (backg) => {
+  console.log(backg)
+  // $('body').css('background-image', "url(img/"+backg+".jpeg)");
+};
+
 let addToDom = result => {
   let today;
   let forcastfortheday;
@@ -64,6 +67,7 @@ let addToDom = result => {
     $('<th>'+ date +'</th>').appendTo('#day');
     $('<th>'+ forcastfortheday +'</th>').appendTo('#txtinfo');
     $('<th><img src='+ today +'></th>').appendTo('#imginfo');
-  }    
+  }
+  //backgroundPicker(info[0].icon)    
 };
 

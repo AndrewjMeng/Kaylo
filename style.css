@@ -1,9 +1,13 @@
 
 body {
-  background-color: skyblue;
+  background-size: cover;
+  background-image: url(img/hazy.jpeg)
 }
 table{
   table-layout: fixed;
   border-collapse: collapse;
   border: 3px solid black;
+}
+input:focus {
+  background-color: lightgrey;
 }
