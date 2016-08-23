@@ -15,24 +15,26 @@ let clearInputs = () => {
 };
 
 let weatherCall = (urls, zipOrCity) => {
-    $.ajax({
-    url : urls,
-    dataType : "json",
-    success : url => {
-      console.log(url)
-      addToDom(url);
-      clearInputs();
-      }
-    });
+  $.ajax({
+  url : urls,
+  dataType : "json",
+  success : url => {
+    console.log(url)
+    addToDom(url);
+    clearInputs();
+    }
+  });
 };
+
 let createToday = () => {
   $("<tr id='days'></tr>").appendTo('#tableWeather');
   $("<tr id='txtinfos'></tr>").appendTo('#tableWeather');
   $("<tr id='imginfos'></tr>").appendTo('#tableWeather');
   $("<tr id='img'></tr>").appendTo('#tableWeather'); 
   $("<tr id='imgdis'></tr>").appendTo('#tableWeather'); 
-}
-let autoDesplay = (url) => {
+};
+
+let autoDesplay = url => {
   createToday();
   let info = url.current_observation
   $('<th>'+'Location: ' + info.observation_location.full+'</th>').appendTo('#days');
@@ -40,7 +42,6 @@ let autoDesplay = (url) => {
   $('<th>'+ 'Wind: ' + info.wind_string +'</th>').appendTo('#imginfos');
   $('<th><img src='+ info.icon_url +'></th>').appendTo('#img');
   $('<th>'+ 'Weather: ' + info.icon +'</th>').appendTo('#imgdis');
-
 
   backgroundPicker(info.icon)  
 }
@@ -73,7 +74,7 @@ let startSearch = () => {
 };
 
 let backgroundPicker = (backg) => {
-  console.log(backg)
+  console.log('input',backg)
   $('body').css('background-image', "url(img/"+backg+".jpeg)");
 };
 
