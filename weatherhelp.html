@@ -2,20 +2,28 @@
 <html>
 <head>
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-<script src='main.js'></script></script>
-  <title>WEATHER</title>
+<script src='main.js'></script>
+<link href="style.css">
+<title>WEATHER</title>
 </head>
 <body>
+  <div>
   <input type='text' placeholder='enter a city' id='city' br/>
   <input type='text' placeholder='enter a state' id='state'>
   <input type='text' placeholder='enter a zip-code' id='zipcode'>
   <select>
     <option value="currentF">Current Forcast</option>
-    <option value="5dayF">Five day Forecast</option>
+    <option value="5dayF">Four day Forecast</option>
   </select>
 
   <input type='submit' value='Weather' onclick='startSearch()'>
-
-  <div id='placehere'></div>
+  </div>
+  <table id='currentTable'>
+  </table> 
+  <table id='tableWeather'>
+      <tr id='day'></tr>
+      <tr id='txtinfo'></tr>
+      <tr id='imginfo'></tr>
+  </table>
 </body>
 </html>

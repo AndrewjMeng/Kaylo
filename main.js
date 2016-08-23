@@ -1,8 +1,9 @@
-var weatherCall = function(urls) {
+var weatherCall = function(urls, zipOrCity) {
     $.ajax({
     url : urls,
     dataType : "json",
     success : function(url) {
+      console.log(url)
       addToDom(url);
       }
     });
@@ -11,17 +12,27 @@ var weatherCall = function(urls) {
   var queryCity = document.getElementById('city').value;
   var queryState = document.getElementById('state').value;
   var queryZip = document.getElementById('zipcode').value;
-  var urls = "http://api.wunderground.com/api/0c6827c56d281db1/forecast/geolookup/conditions/q/"+queryZip+queryCity+'/'+queryState+".json"
-  weatherCall(urls);
-}
+  var urls = '';
+  var zipOrCity = false;
+  if (!queryZip) {
+    urls = "http://api.wunderground.com/api/0c6827c56d281db1/forecast10day/q/" + queryState + "/" + queryCity + ".json"
+    zipOrCity = true;
+  } else {
+    urls = "http://api.wunderground.com/api/0c6827c56d281db1/forecast/geolookup/conditions/q/"+ queryZip + queryCity + '/' + queryState + ".json"
+  }
+  weatherCall(urls, zipOrCity);
+};
 
 var addToDom = function(result) {
-  var simpleTemp = result.current_observation.display_location.full+ result.current_observation.temperature_string;
-  var today = result.forecast.txt_forecast.forecastday[0].icon_url
-  $('<div>'+simpleTemp+'</div>').appendTo('body');
-  console.log(today)
-  var elem = document.createElement("img");
-  elem.setAttribute("src", today);
-  document.getElementById("placehere").appendChild(elem);
-
-}
+  var today;
+  var forcastfortheday;
+  var info = result.forecast.txt_forecast.forecastday
+  for (var i = 0; i < 8; i+=2) {
+    date = info[i].title;
+    today =  info[i].icon_url;
+    forcastfortheday = info[i].fcttext;
+    $('<th>'+ date +'</th>').appendTo('#day');
+    $('<th>'+ forcastfortheday +'</th>').appendTo('#txtinfo');
+    $('<th><img src='+ today +'></th>').appendTo('#imginfo');
+  }    
+};
