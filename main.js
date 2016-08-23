@@ -25,10 +25,35 @@ let weatherCall = (urls, zipOrCity) => {
       }
     });
 };
+let createToday = () => {
+  $("<tr id='days'></tr>").appendTo('#tableWeather');
+  $("<tr id='txtinfos'></tr>").appendTo('#tableWeather');
+  $("<tr id='imginfos'></tr>").appendTo('#tableWeather');
+  $("<tr id='img'></tr>").appendTo('#tableWeather'); 
+  $("<tr id='imgdis'></tr>").appendTo('#tableWeather'); 
+}
+let autoDesplay = (url) => {
+  createToday();
+  let info = url.current_observation
+  $('<th>'+'Location: ' + info.observation_location.full+'</th>').appendTo('#days');
+  $('<th>'+  'Temperature: ' + info.temp_f +'</th>').appendTo('#txtinfos');
+  $('<th>'+ 'Wind: ' + info.wind_string +'</th>').appendTo('#imginfos');
+  $('<th><img src='+ info.icon_url +'></th>').appendTo('#img');
+  $('<th>'+ 'Weather: ' + info.icon +'</th>').appendTo('#imgdis');
 
+
+  backgroundPicker(info.icon)  
+}
 let autoLocation = () => {
-  urls = "http://api.wunderground.com/api/0c6827c56d281db1/forecast10day/q/autoip.json"
-  weatherCall(urls);
+  urls = "http://api.wunderground.com/api/0c6827c56d281db1/conditions/q/autoip.json"
+   $.ajax({
+    url : urls,
+    dataType : "json",
+    success : url => {
+      console.log(url)
+      autoDesplay(url);
+    }
+  });
 };
 
 let startSearch = () => {
@@ -49,7 +74,7 @@ let startSearch = () => {
 
 let backgroundPicker = (backg) => {
   console.log(backg)
-  // $('body').css('background-image', "url(img/"+backg+".jpeg)");
+  $('body').css('background-image', "url(img/"+backg+".jpeg)");
 };
 
 let addToDom = result => {
@@ -68,6 +93,6 @@ let addToDom = result => {
     $('<th>'+ forcastfortheday +'</th>').appendTo('#txtinfo');
     $('<th><img src='+ today +'></th>').appendTo('#imginfo');
   }
-  //backgroundPicker(info[0].icon)    
+  backgroundPicker(info[0].icon)    
 };
 
