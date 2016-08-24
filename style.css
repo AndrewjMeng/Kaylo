@@ -1,24 +1,37 @@
 
 body {
-    width: 100%; 
-    height: 100%; 
-    position: fixed; 
-    left: 0px; 
-    top: 0px; 
-    z-index: -1;
-/*  background-size: auto;*/
-  /*background-image: url(img/tstorms.jpeg)*/
+background-size: 100%;
 }
 table{
-  opacity: 0.8;
+  opacity: 0.75;
   background-color: white;
-  table-layout: fixed;
   border-collapse: collapse;
   border: 3px solid black;
 }
+table:empty {
+  visibility: hidden;
+}
+#currentTable {
+  float: left;
+  padding: 10px;
+  margin: 30px;
+  width:30%;
+}
+#tableWeather {
+  float: left;
+  padding: 10px;
+  margin: 30px;
+  width:30%;
+}
+#queriedTable {
+  float: left;
+  padding: 10px;
+  margin: 30px;
+  width:30%;
+}
 th {
   text-align: left;
-  padding: 10px;
+  padding: 5px;
 }
 input:focus {
   background-color: lightgrey;
@@ -27,21 +40,15 @@ caption, label {
   font-size: 30px;
   color:white;
 }
-/*tr:nth-child(even) {background-color: #f2f2f2}*/
+th:nth-child(even) {
+  background-color: #f2f2f2
+}
+
 input[type=text] {
-/* required to properly style form 
-   elements on WebKit based browsers */
-  -webkit-appearance: none;
-  
   width : 100%;
   border: 1px solid #333;
   margin: 0;
-  
-  font-family: inherit;
   font-size: 90%;
-  
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
 }
 
 input:invalid {
