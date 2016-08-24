@@ -108,7 +108,7 @@ let clearTable = () => {
 };
 
 let createQueried = () => {
-  $("<caption>Current Weather Queried Location</cation>").appendTo("#queriedTable");
+  $("<caption>Current Weather at Queried Location</cation>").appendTo("#queriedTable");
   $("<tr id='da'></tr>").appendTo('#queriedTable');
   $("<tr id='tim'></tr>").appendTo('#queriedTable');
   $("<tr id='txtin'></tr>").appendTo('#queriedTable');

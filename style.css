@@ -1,12 +1,16 @@
-
 body {
 background-size: 100%;
+font-size: 1.25vw;
 }
-table{
+table {
   opacity: 0.75;
   background-color: white;
   border-collapse: collapse;
   border: 3px solid black;
+  width:30%;
+  padding: 10px;
+  margin: 25px;
+  box-shadow: 20px 20px 50px 20px rgba(0, 0, 0, 1);
 }
 table:empty {
   visibility: hidden;
@@ -14,24 +18,34 @@ table:empty {
 #currentTable {
   float: left;
   padding: 10px;
-  margin: 30px;
-  width:30%;
+  margin: 25px;
 }
 #tableWeather {
   float: left;
   padding: 10px;
-  margin: 30px;
-  width:30%;
+  margin: 25px;
 }
 #queriedTable {
   float: left;
   padding: 10px;
+  margin: 25px;
+}
+label {
   margin: 30px;
-  width:30%;
+}
+tr {
+  width:50%;
 }
 th {
   text-align: left;
   padding: 5px;
+  width:50%;
+}
+td {
+  width:50%;
+}
+input[type=submit]{
+  width:100%;
 }
 input:focus {
   background-color: lightgrey;
@@ -43,18 +57,15 @@ caption, label {
 th:nth-child(even) {
   background-color: #f2f2f2
 }
-
 input[type=text] {
   width : 100%;
   border: 1px solid #333;
   margin: 0;
   font-size: 90%;
 }
-
 input:invalid {
   box-shadow: 0 0 5px 1px red;
 }
-
 input:focus:invalid {
   outline: none;
 }

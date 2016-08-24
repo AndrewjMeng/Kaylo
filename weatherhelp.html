@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="initial-scale=1">
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src='main.js'></script>
     <link rel="stylesheet" href="style.css">    
@@ -8,25 +9,25 @@
   </head>
   <body id='pagebody' onload="autoLocation()">
     <form onsubmit="event.preventDefault(); startSearch()">
-    <label>Inputs</label>
-    <table id='Enter'>
-      <tr>
-        <td>Enter a City</td>
-        <td><input type='text' placeholder='enter a city' id='city' pattern="^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$"></td>
-      </tr>
-      <tr>
-        <td>Enter a State</td>    
-        <td><input type='text' placeholder='enter a state' id='state' pattern="^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$"></td>
-      </tr>
-      <tr>
-        <td>Enter a Zip-Code</td>
-        <td><input type='text' placeholder='enter a zip-code' id='zipcode' pattern='^\d{5}(?:[-\s]\d{4})?$'></td>    
-      </tr>
-      <tr>
-        <td><input type='submit' value='Weather' onclick='startSearch()'></td>
-        <td></td>
-      </tr>        
-    </table>
+      <label>Inputs</label>
+      <table id='Enter'>
+        <tr>
+          <td>Enter a City</td>
+          <td><input type='text' placeholder='enter a city' id='city' pattern="^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$"></td>
+        </tr>
+        <tr>
+          <td>Enter a State</td>    
+          <td><input type='text' placeholder='enter a state' id='state' pattern="^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$"></td>
+        </tr>
+        <tr>
+          <td>Enter a Zip-Code</td>
+          <td><input type='text' placeholder='enter a zip-code' id='zipcode' pattern='^\d{5}(?:[-\s]\d{4})?$'></td>    
+        </tr>
+        <tr>
+          <td><input type='submit' value='Weather' onclick='startSearch()'></td>
+          <td></td>
+        </tr>        
+      </table>
     </form> 
     <br/>
     <table class='tableWeather' id='tableWeather'>
