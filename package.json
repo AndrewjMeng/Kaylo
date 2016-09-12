@@ -1,0 +1,17 @@
+{
+  "name": "Elmcrest",
+  "version": "1.0.1",
+  "author": "Andrew Meng",
+  "engines": {
+    "node": "6.4.0"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "grunt": "^1.0.1",
+    "jquery": "^3.1.0",
+    "path": "^0.12.7",
+    "grunt-contrib-jshint": "^0.9.2",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-nodemon": "^0.2.1"
+  }
+}

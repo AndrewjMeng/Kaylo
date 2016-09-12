@@ -9,9 +9,9 @@ let weatherCall = (urls) => {
     url : urls,
     dataType : "json",
     success : url => {
-      console.log('weathercall',url)
+      console.log('weathercall',url);
       addToDom(url);
-      queTable(url)
+      queTable(url);
       clearInputs();
     }
   });
@@ -30,27 +30,27 @@ let createToday = () => {
 
 let autoDesplay = url => {
   createToday();
-  let info = url.current_observation
-  pop1 = url.forecast.simpleforecast.forecastday[0].pop
-  radar4 = url.satellite.image_url_ir4
+  let info = url.current_observation;
+  pop1 = url.forecast.simpleforecast.forecastday[0].pop;
+  radar4 = url.satellite.image_url_ir4;
   $('<th>'+'Location: ' + info.observation_location.full+'</th>').appendTo('#days');
-  $('<th>'+ info.observation_time+'</th>' ).appendTo('#time')
+  $('<th>'+ info.observation_time+'</th>' ).appendTo('#time');
   $('<th>'+  'Temperature: ' + info.temp_f +' F </th>').appendTo('#txtinfos');
   $('<th>'+ 'Wind: ' + info.wind_string +'</th>').appendTo('#imginfos');
   $('<th><img src='+ info.icon_url +'></th>').appendTo('#img');
   $('<th>' + pop1 +' % precipitation</th>').appendTo('#pop12');
   $('<th>'+ 'Weather: ' + info.weather +'</th>').appendTo('#imgdis');
   $('<th><img src='+ radar4 +'></th>').appendTo('#radar3');
-  backgroundPicker(info.icon)  
+  backgroundPicker(info.icon);
 };
 
 let autoLocation = () => {
-  urls = "http://api.wunderground.com/api/0c6827c56d281db1/forecast/conditions/satellite/q/autoip.json"
+  urls = "http://api.wunderground.com/api/0c6827c56d281db1/forecast/conditions/satellite/q/autoip.json";
    $.ajax({
     url : urls,
     dataType : "json",
     success : url => {
-      console.log('auto',url)
+      console.log('auto',url);
       autoDesplay(url);
     }
   });
@@ -61,9 +61,9 @@ let startSearch = () => {
   let queryState = document.getElementById('state').value;
   let queryZip = document.getElementById('zipcode').value;
   if (!queryZip) {
-    urls = "http://api.wunderground.com/api/0c6827c56d281db1/forecast/satellite/conditions/q/"+ queryZip + queryState + "/" + queryCity + ".json"
+    urls = "http://api.wunderground.com/api/0c6827c56d281db1/forecast/satellite/conditions/q/"+ queryZip + queryState + "/" + queryCity + ".json";
   } else {
-    urls = "http://api.wunderground.com/api/0c6827c56d281db1/forecast/conditions/satellite/q/"+ queryZip + ".json"
+    urls = "http://api.wunderground.com/api/0c6827c56d281db1/forecast/conditions/satellite/q/"+ queryZip + ".json";
   }
   weatherCall(urls);
 };
@@ -76,26 +76,26 @@ let backgroundPicker = (backg) => {
 let addToDom = result => {
   clearTable();
   createTable(result);
-  let info = result.forecast.simpleforecast.forecastday
+  let info = result.forecast.simpleforecast.forecastday;
   for (let i = 0; i < info.length; i++) {
     date = info[i].date.weekday;
     today =  info[i].icon_url;
     high = info[i].high.fahrenheit;
     low = info[i].low.fahrenheit;
-    rain = info[i].pop
-    condition = info[i].conditions
+    rain = info[i].pop;
+    condition = info[i].conditions;
     $('<th>'+ date +'</th>').appendTo('#day');
     $('<th>'+ condition +'</th>').appendTo('#condit');
     $('<th>'+rain+' % precipitation</th>').appendTo('#raining');
     $('<th>'+ 'High: '+high + 'F Low: '+low+' F</th>').appendTo('#txtinfo');
     $('<th><img src='+ today +'></th>').appendTo('#imginfo');
   }
-  backgroundPicker(info[0].icon)    
+  backgroundPicker(info[0].icon);
 };
 
 let createTable = (result) => {
-  city = result.current_observation.observation_location
-  $("<caption>Queried Location: "+city.city+" "+city.state+"</cation>").appendTo("#currentTable")
+  city = result.current_observation.observation_location;
+  $("<caption>Queried Location: "+city.city+" "+city.state+"</cation>").appendTo("#currentTable");
   $("<tr id='day'></tr>").appendTo('#currentTable');
   $("<tr id='condit'></tr>").appendTo('#currentTable');
   $("<tr id='raining'></tr>").appendTo('#currentTable');
@@ -120,7 +120,7 @@ let createQueried = () => {
 };
 
 let queTable = url => {
-  console.log('quie', url)
+  console.log('quie', url);
   clearQue();
   createQueried();
   let info = url.current_observation
